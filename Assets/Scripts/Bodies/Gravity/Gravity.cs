@@ -1,24 +1,25 @@
+using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Gravity : MonoBehaviour
 {
-    float G = 1;
+    const float G = 0.01f;
     Vector3 scaleChange;
 
     //b_ Is for bodies
     [Header("Body Properties")]
-    public int velocity = 0;
+    public float speed = 0;
     public float b_radius = 1;
     public float b_density; //Will look into this
     float b_Volume;
-    float b_Mass;
+    public float b_Mass;
     float b_Ag; //Accel due to gravity
+    Vector3 velocity, iniVel; //Actual velocity and initial Velocity
 
     Rigidbody rb;
-    public GameObject[] bodies;
-    int bodyNum;
+    public List<GameObject> bodies;
 
     [Header("Gravity Param")]
     float r; //Distance between 2 bodies
@@ -33,35 +34,34 @@ public class Gravity : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bodies = new GameObject[GameObject.FindGameObjectsWithTag("Body").Length - 1];
-        Debug.Log(bodies.Length);
-    }
-
-    private void Update() {
-        if(gameObject.GetComponent<Gravity>()){
-            bodies = GameObject.FindGameObjectsWithTag("Body");
-
-            for (int i = 0; i < bodies.Length; i++)
-            {
-                if(bodies[i].name == this.gameObject.name){
-                    bodies[i] = null;
-                }
-            }
-        }
+       setBodies();
     }
 
     private void FixedUpdate() {
         gravity();
+        rb.MovePosition(rb.position + currentVel * Time.fixedDeltaTime);
+    }
+
+    void setBodies(){
+        //Sets all bodies to a List within each object
+        bodies.AddRange(GameObject.FindGameObjectsWithTag("Body"));
+
+        for (int i = 0; i < bodies.Count(); i++)
+        {
+            if(bodies[i].name == this.gameObject.name){
+                bodies.Remove(this.gameObject);
+            }
+        }
     }
 
     float calcAg(){
         //Ag = GM/b_radius^2
         b_Ag = G * getMass() / Mathf.Pow(b_radius, 2);
     
-        return b_Ag;
+        return b_Ag / 100;
     }
 
-    float getMass(){
+    public float getMass(){
         //Set Radius
         scaleChange = new Vector3(b_radius, b_radius, b_radius);
         this.transform.localScale = scaleChange;
@@ -74,10 +74,22 @@ public class Gravity : MonoBehaviour
     }
 
     void gravity(){
-        foreach (GameObject body in bodies)
+        float M, m, F_scalar;
+
+        Vector3 F_dir;
+
+        //Fg = GMm/r^2
+        foreach (var body in bodies)
         {
-            r = (body.gameObject.GetComponent<Rigidbody>().position - this.rb.position).sqrMagnitude;
-            //Debug.Log(r);
+            r = Mathf.Sqrt((body.GetComponent<Rigidbody>().position - this.rb.position).sqrMagnitude); //Distance between objects
+            M = getMass();
+            m = body.GetComponent<Gravity>().getMass();
+            F_dir = (body.GetComponent<Rigidbody>().position - this.rb.position).normalized;
+
+            F_scalar = (G * M * m) / Mathf.Pow(r,2);
+            Fg = F_dir * F_scalar / 10000;
+
+            currentVel += Fg;
         }
     }
 }
