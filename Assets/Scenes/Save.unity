@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -423,7 +423,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5608873055035818703, guid: 4d897b276aa9fca4cb0d2efe12f11da7, type: 3}
       propertyPath: speed
-      value: 14.97
+      value: 3.41
       objectReference: {fileID: 0}
     - target: {fileID: 5608873055035818703, guid: 4d897b276aa9fca4cb0d2efe12f11da7, type: 3}
       propertyPath: isStar
@@ -504,11 +504,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5608873055035818703, guid: 4d897b276aa9fca4cb0d2efe12f11da7, type: 3}
       propertyPath: b_radius
-      value: 9.3
+      value: 6.11
       objectReference: {fileID: 0}
     - target: {fileID: 5608873055035818703, guid: 4d897b276aa9fca4cb0d2efe12f11da7, type: 3}
       propertyPath: b_density
-      value: 30.1
+      value: 28.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
