@@ -13,6 +13,7 @@ public class Gravity : MonoBehaviour
     public float speed = 0;
     public float b_radius = 1;
     public float b_density; //Will look into this
+    public bool isStar = false;
     float b_Volume;
     public float b_Mass;
     float b_Ag; //Accel due to gravity
@@ -27,7 +28,6 @@ public class Gravity : MonoBehaviour
     Vector3 initialVel, currentVel;
 
     private void Awake() {
-        calcAg();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -35,6 +35,13 @@ public class Gravity : MonoBehaviour
     void Start()
     {
        setBodies();
+       calcAg();
+       initialVel = new Vector3(0,0, speed);
+       currentVel = initialVel;
+    }
+
+    private void Update() {
+        is_Star();
     }
 
     private void FixedUpdate() {
@@ -51,6 +58,14 @@ public class Gravity : MonoBehaviour
             if(bodies[i].name == this.gameObject.name){
                 bodies.Remove(this.gameObject);
             }
+        }
+    }
+
+    void is_Star(){
+        if(isStar){
+            gameObject.GetComponent<Gravity>().enabled = false;
+        }else{
+            gameObject.GetComponent<Gravity>().enabled = true;
         }
     }
 

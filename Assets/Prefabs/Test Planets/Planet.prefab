@@ -119,9 +119,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704cd9d5cc293d44c81ea6aa19f5fac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 0
+  speed: 0
   b_radius: 2.02
   b_density: 55
+  isStar: 0
+  b_Mass: 0
   bodies: []
 --- !u!54 &5700791309054701921
 Rigidbody:
