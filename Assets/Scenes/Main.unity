@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 1132382693}
   - component: {fileID: 1132382698}
   m_Layer: 0
-  m_Name: Test2
+  m_Name: Red
   m_TagString: Body
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 1640249330}
   - component: {fileID: 1640249335}
   m_Layer: 0
-  m_Name: Test
+  m_Name: Blue
   m_TagString: Body
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
