@@ -1,3 +1,4 @@
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -16,7 +17,8 @@ public class Gravity : MonoBehaviour
     float b_Ag; //Accel due to gravity
 
     Rigidbody rb;
-    public Gravity[] body;
+    public GameObject[] bodies;
+    int bodyNum;
 
     [Header("Gravity Param")]
     float r; //Distance between 2 bodies
@@ -25,12 +27,31 @@ public class Gravity : MonoBehaviour
 
     private void Awake() {
         calcAg();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = this.GetComponent<Rigidbody>();
+        bodies = new GameObject[GameObject.FindGameObjectsWithTag("Body").Length - 1];
+        Debug.Log(bodies.Length);
+    }
+
+    private void Update() {
+        if(gameObject.GetComponent<Gravity>()){
+            bodies = GameObject.FindGameObjectsWithTag("Body");
+
+            for (int i = 0; i < bodies.Length; i++)
+            {
+                if(bodies[i].name == this.gameObject.name){
+                    bodies[i] = null;
+                }
+            }
+        }
+    }
+
+    private void FixedUpdate() {
+        gravity();
     }
 
     float calcAg(){
@@ -53,13 +74,10 @@ public class Gravity : MonoBehaviour
     }
 
     void gravity(){
-        // Fg = GMm / r^2
-
-        foreach(var bodies in body){
-            if(bodies != this){
-                
-            }
+        foreach (GameObject body in bodies)
+        {
+            r = (body.gameObject.GetComponent<Rigidbody>().position - this.rb.position).sqrMagnitude;
+            //Debug.Log(r);
         }
-    	
     }
 }
