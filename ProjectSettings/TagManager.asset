@@ -9,6 +9,7 @@ TagManager:
   - massInfo
   - gInfo
   - velInfo
+  - Name
   layers:
   - Default
   - TransparentFX
