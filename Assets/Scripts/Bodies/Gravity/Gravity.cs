@@ -42,6 +42,10 @@ public class Gravity : MonoBehaviour
 
     private void Update() {
         is_Star();
+        if(speed < 0){
+            speed = 0;
+            Debug.LogError("Speed is negative, BIG NO NO");
+        }
     }
 
     private void FixedUpdate() {
