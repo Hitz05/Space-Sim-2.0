@@ -17,7 +17,6 @@ public class Gravity : MonoBehaviour
     float b_Volume;
     public float b_Mass;
     float b_Ag; //Accel due to gravity
-    Vector3 velocity, iniVel; //Actual velocity and initial Velocity
 
     Rigidbody rb;
     public List<GameObject> bodies;
@@ -25,7 +24,8 @@ public class Gravity : MonoBehaviour
     [Header("Gravity Param")]
     float r; //Distance between 2 bodies
     Vector3 Fg; //Force due to gravity
-    Vector3 initialVel, currentVel;
+    Vector3 initialVel;
+    public Vector3 currentVel;
 
     private void Awake() {
         rb = GetComponent<Rigidbody>();
@@ -73,11 +73,11 @@ public class Gravity : MonoBehaviour
         }
     }
 
-    float calcAg(){
+    public float calcAg(){
         //Ag = GM/b_radius^2
         b_Ag = G * getMass() / Mathf.Pow(b_radius, 2);
     
-        return b_Ag / 100;
+        return b_Ag;
     }
 
     public float getMass(){

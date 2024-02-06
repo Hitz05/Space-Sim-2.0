@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Body
   - BodyInfo
+  - massInfo
+  - gInfo
+  - velInfo
   layers:
   - Default
   - TransparentFX
