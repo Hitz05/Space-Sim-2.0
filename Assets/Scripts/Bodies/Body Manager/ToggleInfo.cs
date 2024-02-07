@@ -9,8 +9,10 @@ public class ToggleInfo : MonoBehaviour
     Color mouseOver = Color.magenta;
     Color originalCol;
 
-    GameObject selectedBody;
-    GameObject massInfo, gInfo, velInfo, Name;
+    GameObject massInfo, gInfo, velInfo, Name, selectedBody;
+
+    public static bool show = false;
+    float selVel;
 
     private void Start() {
         m_Rend = gameObject.GetComponent<MeshRenderer>();
@@ -19,6 +21,7 @@ public class ToggleInfo : MonoBehaviour
         gInfo = GameObject.FindGameObjectWithTag("gInfo");
         velInfo = GameObject.FindGameObjectWithTag("velInfo");
         Name = GameObject.FindGameObjectWithTag("Name");
+
     }
 
     private void OnMouseOver() {
@@ -26,9 +29,17 @@ public class ToggleInfo : MonoBehaviour
         if(Input.GetMouseButton(0)){
             //Toggle Canvas with info box
             selectedBody = gameObject;
+            show = true;
             setValues();
+        }else if(Input.GetMouseButton(0)){
+            
         }
     }
+    
+    private void OnMouseExit() {
+        m_Rend.material.color = originalCol;
+    }
+
 
     void setValues(){
         float selMass, selG, selVel;
@@ -42,13 +53,5 @@ public class ToggleInfo : MonoBehaviour
         massInfo.GetComponent<Text>().text = "m: " + selMass * 10 + " Kg";
         gInfo.GetComponent<Text>().text = "acc: " + selG + " G";
         velInfo.GetComponent<Text>().text = "v: " + selVel * 100 + "m/s";
-    }
-
-    private void OnMouseExit() {
-        m_Rend.material.color = originalCol;
-    }
-
-    public void closeMenu(){
-        Debug.Log("Close");
     }
 }

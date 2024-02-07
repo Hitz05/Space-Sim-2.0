@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,8 +12,19 @@ public class GameManager : MonoBehaviour
     int index = 0;
     public bool STOP;
 
+    GameObject planetInfo;
+
+    private void Awake() {
+        planetInfo = GameObject.FindGameObjectWithTag("BodyInfo");
+    }
+
+    private void Start() {
+        planetInfo.SetActive(false);
+    }
+
     private void Update() {
         camSwap();
+        showInfo();
         //_STOP();
     }
 
@@ -29,6 +41,12 @@ public class GameManager : MonoBehaviour
             {
                 gravObj[i].GetComponent<Gravity>().enabled = false;
             }
+        }
+    }
+
+    void showInfo(){
+        if(ToggleInfo.show){
+            planetInfo.SetActive(true);
         }
     }
 
@@ -74,5 +92,10 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void closePlanetInfo(){
+        ToggleInfo.show = false;
+        planetInfo.SetActive(false);
     }
 }

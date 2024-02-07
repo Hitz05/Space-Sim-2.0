@@ -127,6 +127,7 @@ MonoBehaviour:
   isStar: 0
   b_Mass: 0
   bodies: []
+  currentVel: {x: 0, y: 0, z: 0}
 --- !u!54 &5700791309054701921
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -187,3 +188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb0ec6a20f8414747bf7ddd89b4b9aa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  massInfo: {fileID: 0}
+  gInfo: {fileID: 0}
+  velInfo: {fileID: 0}
+  Name: {fileID: 0}
+  selectedBody: {fileID: 4387369077909533874}
