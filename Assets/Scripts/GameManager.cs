@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     GameObject planetInfo;
 
     public GameObject[] bodies;
+    GameObject[] bodyArr;
 
     private void Awake() {
         planetInfo = GameObject.FindGameObjectWithTag("BodyInfo");
@@ -19,18 +20,19 @@ public class GameManager : MonoBehaviour
 
     private void Start() {
         planetInfo.SetActive(false);
-        StartCoroutine(setUpCreate());
     }
 
     private void Update() {
+
+        bodies = new GameObject[GameObject.FindGameObjectsWithTag("Body").Length];
+        bodyArr = GameObject.FindGameObjectsWithTag("Body");
+
         camSwap();
         showInfo();
         setBodies();
     }
 
     void setBodies(){
-        bodies = new GameObject[GameObject.FindGameObjectsWithTag("Body").Length];
-        GameObject[] bodyArr = GameObject.FindGameObjectsWithTag("Body");
 
         for (int i = 0; i < bodies.Length; i++)
         {
@@ -45,10 +47,10 @@ public class GameManager : MonoBehaviour
         while(bodies.Length != 0){
             for (int i = 0; i < bodies.Length; i++)
             {
-                if(BodyCreation.creating){
+                if(BodyCreation.creating && bodies[i] != null){
                     bodies[i].GetComponent<Gravity>().enabled = false;
                     bodies[i].GetComponent<ToggleInfo>().enabled = false;
-                }else{
+                }else if(!BodyCreation.creating){
                     bodies[i].GetComponent<Gravity>().enabled = true;
                     bodies[i].GetComponent<ToggleInfo>().enabled = true;
 

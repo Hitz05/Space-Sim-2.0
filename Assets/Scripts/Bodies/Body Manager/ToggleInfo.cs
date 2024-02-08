@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,14 +27,20 @@ public class ToggleInfo : MonoBehaviour
 
     private void OnMouseOver() {
         m_Rend.material.color = mouseOver;
-        if(Input.GetMouseButton(0)){
+        if(Input.GetMouseButton(0) && !BodyCreation.creating){
             //Toggle Canvas with info box
             selectedBody = gameObject;
             show = true;
             setValues();
-        }else if(Input.GetMouseButton(0)){
-            
+        }else if(Input.GetMouseButton(1) && BodyCreation.creating){
+            StartCoroutine(destroy());
         }
+    }
+
+    IEnumerator destroy(){
+        m_Rend.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        Destroy(this.gameObject);
     }
     
     private void OnMouseExit() {
