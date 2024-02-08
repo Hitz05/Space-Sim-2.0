@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Gravity : MonoBehaviour
@@ -21,7 +20,7 @@ public class Gravity : MonoBehaviour
     Rigidbody rb;
     public List<GameObject> bodies;
 
-    [Header("Gravity Param")]
+    [Header("Gravity Parameters")]
     float r; //Distance between 2 bodies
     Vector3 Fg; //Force due to gravity
     Vector3 initialVel;

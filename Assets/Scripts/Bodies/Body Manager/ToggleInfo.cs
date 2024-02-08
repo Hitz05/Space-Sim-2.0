@@ -9,10 +9,9 @@ public class ToggleInfo : MonoBehaviour
     Color mouseOver = Color.magenta;
     Color originalCol;
 
-    GameObject massInfo, gInfo, velInfo, Name, selectedBody;
+    GameObject massInfo, gInfo, velInfo, Name, denInfo,selectedBody;
 
     public static bool show = false;
-    float selVel;
 
     private void Start() {
         m_Rend = gameObject.GetComponent<MeshRenderer>();
@@ -21,6 +20,7 @@ public class ToggleInfo : MonoBehaviour
         gInfo = GameObject.FindGameObjectWithTag("gInfo");
         velInfo = GameObject.FindGameObjectWithTag("velInfo");
         Name = GameObject.FindGameObjectWithTag("Name");
+        denInfo = GameObject.FindGameObjectWithTag("denInfo");
 
     }
 
@@ -42,16 +42,18 @@ public class ToggleInfo : MonoBehaviour
 
 
     void setValues(){
-        float selMass, selG, selVel;
+        float selMass, selG, selVel, selDen;
         string name;
         selMass = selectedBody.GetComponent<Gravity>().getMass();
         selG = Mathf.Round(selectedBody.GetComponent<Gravity>().calcAg() * 10f)  * 0.1f;
         selVel = Mathf.Round(selectedBody.GetComponent<Gravity>().currentVel.sqrMagnitude * 10f) * 0.1f;
         name = selectedBody.gameObject.name;
+        selDen = selectedBody.gameObject.GetComponent<Gravity>().b_density;
 
         Name.GetComponent<Text>().text = "Name: " + name;
-        massInfo.GetComponent<Text>().text = "m: " + selMass * 10 + " Kg";
+        massInfo.GetComponent<Text>().text = "m: " + selMass * 10 + " MKg";
         gInfo.GetComponent<Text>().text = "acc: " + selG + " G";
         velInfo.GetComponent<Text>().text = "v: " + selVel * 100 + "m/s";
+        denInfo.GetComponent<Text>().text = "ρ: " + selDen * 100 + "Kg/m^3";
     }
 }

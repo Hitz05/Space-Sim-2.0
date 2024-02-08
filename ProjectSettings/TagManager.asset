@@ -10,6 +10,7 @@ TagManager:
   - gInfo
   - velInfo
   - Name
+  - denInfo
   layers:
   - Default
   - TransparentFX

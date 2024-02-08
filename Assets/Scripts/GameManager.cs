@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     int camCount;
     public Object[] cameras;
-    public Object[] gravObj;
     int index = 0;
-    public bool STOP;
 
     GameObject planetInfo;
+
+    public GameObject[] bodies;
 
     private void Awake() {
         planetInfo = GameObject.FindGameObjectWithTag("BodyInfo");
@@ -20,27 +19,46 @@ public class GameManager : MonoBehaviour
 
     private void Start() {
         planetInfo.SetActive(false);
+        StartCoroutine(setUpCreate());
     }
 
     private void Update() {
         camSwap();
         showInfo();
-        //_STOP();
+        setBodies();
     }
 
-    void _STOP(){
-        gravObj = FindObjectsOfType<Gravity>();
+    void setBodies(){
+        bodies = new GameObject[GameObject.FindGameObjectsWithTag("Body").Length];
+        GameObject[] bodyArr = GameObject.FindGameObjectsWithTag("Body");
 
-        if(!STOP){
-            for (int i = 0; i < gravObj.Length; i++)
+        for (int i = 0; i < bodies.Length; i++)
+        {
+            bodies[i] = bodyArr[i];
+        }
+
+        StartCoroutine(setUpCreate());
+    }
+
+    IEnumerator setUpCreate(){
+        yield return new WaitForEndOfFrame();
+        while(bodies.Length != 0){
+            for (int i = 0; i < bodies.Length; i++)
             {
-                gravObj[i].GetComponent<Gravity>().enabled = true;
+                if(BodyCreation.creating){
+                    bodies[i].GetComponent<Gravity>().enabled = false;
+                    bodies[i].GetComponent<ToggleInfo>().enabled = false;
+                }else{
+                    bodies[i].GetComponent<Gravity>().enabled = true;
+                    bodies[i].GetComponent<ToggleInfo>().enabled = true;
+
+                    if(bodies[i].GetComponent<Gravity>().isStar){
+                        bodies[i].GetComponent<Gravity>().enabled = false;
+                    }
+                }
             }
-        }else{
-            for (int i = 0; i < gravObj.Length; i++)
-            {
-                gravObj[i].GetComponent<Gravity>().enabled = false;
-            }
+
+            break;
         }
     }
 
