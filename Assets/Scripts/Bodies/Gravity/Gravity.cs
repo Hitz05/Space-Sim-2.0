@@ -15,6 +15,7 @@ public class Gravity : MonoBehaviour
     public bool isStar = false;
     float b_Volume;
     public float b_Mass;
+    public bool notStar = true;
     float b_Ag; //Accel due to gravity
 
     Rigidbody rb;
@@ -26,6 +27,10 @@ public class Gravity : MonoBehaviour
     Vector3 initialVel;
     public Vector3 currentVel;
 
+    int count = 0;
+
+    public GameObject[] checkBodies;
+
     private void Awake() {
         rb = GetComponent<Rigidbody>();
     }
@@ -35,15 +40,31 @@ public class Gravity : MonoBehaviour
     {
        setBodies();
        calcAg();
-       initialVel = new Vector3(0,0, speed);
-       currentVel = initialVel;
+
+       checkBodies = GameObject.FindGameObjectsWithTag("Body");
     }
 
     private void Update() {
+        setVel();
         is_Star();
         if(speed < 0){
             speed = 0;
             Debug.LogError("Speed is negative, BIG NO NO");
+        }
+    }
+
+    void checkBodiesNum(){
+        
+    }
+
+    void setVel(){
+        while(count < 1){
+            initialVel = new Vector3(0,0, speed);
+            currentVel = initialVel;
+
+            count++;
+
+            break;
         }
     }
 

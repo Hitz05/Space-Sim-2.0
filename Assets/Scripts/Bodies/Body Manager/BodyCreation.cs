@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BodyCreation : MonoBehaviour
@@ -20,15 +18,20 @@ public class BodyCreation : MonoBehaviour
     void Update()
     {
         spawnObj();
+        creating = localCreate;
     }
 
     void spawnObj(){
-        Vector3 mouse = Input.mousePosition;
-        mouse.z = offset;
-        Vector3 pos = Camera.main.ScreenToWorldPoint(mouse);
-        pos.y = 0;
-        if(Input.GetButtonDown("Fire1")){
-            Instantiate(spawn, pos, Quaternion.identity);
+        while(localCreate){
+            Vector3 mouse = Input.mousePosition;
+            mouse.z = offset;
+            Vector3 pos = Camera.main.ScreenToWorldPoint(mouse);
+            pos.y = 0;
+            if(Input.GetButtonDown("Fire1")){
+                Instantiate(spawn, pos, Quaternion.identity);
+            }
+
+            break;
         }
     }
 }

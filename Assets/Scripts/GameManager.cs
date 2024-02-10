@@ -43,7 +43,9 @@ public class GameManager : MonoBehaviour
     }
 
     IEnumerator setUpCreate(){
+
         yield return new WaitForEndOfFrame();
+        
         while(bodies.Length != 0){
             for (int i = 0; i < bodies.Length; i++)
             {
@@ -54,7 +56,7 @@ public class GameManager : MonoBehaviour
                     bodies[i].GetComponent<Gravity>().enabled = true;
                     bodies[i].GetComponent<ToggleInfo>().enabled = true;
 
-                    if(bodies[i].GetComponent<Gravity>().isStar){
+                    if(bodies[i].GetComponent<Gravity>().isStar && !bodies[i].GetComponent<Gravity>().notStar){
                         bodies[i].GetComponent<Gravity>().enabled = false;
                     }
                 }
