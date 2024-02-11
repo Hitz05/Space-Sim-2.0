@@ -47,6 +47,7 @@ public class Gravity : MonoBehaviour
     private void Update() {
         setVel();
         is_Star();
+        checkBodiesNum();
         if(speed < 0){
             speed = 0;
             Debug.LogError("Speed is negative, BIG NO NO");
@@ -54,7 +55,9 @@ public class Gravity : MonoBehaviour
     }
 
     void checkBodiesNum(){
-        
+        if(checkBodies.Length != bodies.Count()){
+            Debug.Log("Oh no");
+        }
     }
 
     void setVel(){
