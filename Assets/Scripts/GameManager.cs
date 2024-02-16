@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,12 +11,19 @@ public class GameManager : MonoBehaviour
     int index = 0;
 
     GameObject planetInfo;
+    Text nameBox, velBox, massBox, densBox, gBox;
 
     public GameObject[] bodies;
     GameObject[] bodyArr;
 
     private void Awake() {
         planetInfo = GameObject.FindGameObjectWithTag("BodyInfo");
+
+        nameBox = GameObject.FindGameObjectWithTag("Name").GetComponent<Text>();
+        velBox = GameObject.FindGameObjectWithTag("velInfo").GetComponent<Text>();
+        gBox = GameObject.FindGameObjectWithTag("gInfo").GetComponent<Text>();
+        massBox = GameObject.FindGameObjectWithTag("massInfo").GetComponent<Text>();
+        densBox = GameObject.FindGameObjectWithTag("denInfo").GetComponent<Text>();
     }
 
     private void Start() {
@@ -27,15 +35,53 @@ public class GameManager : MonoBehaviour
         bodies = new GameObject[GameObject.FindGameObjectsWithTag("Body").Length];
         bodyArr = GameObject.FindGameObjectsWithTag("Body");
 
+        for (int i = 0; i < bodyArr.Length; i++)
+        {
+            if(bodyArr[i].gameObject.GetComponent<ToggleInfo>().onBody){
+                if(bodyArr[i].GetComponent<ToggleInfo>().show){
+                    planetInfo.SetActive(true);
+                    GetSetInfo();
+                }
+            }
+        }
         camSwap();
-        //showInfo();
     }
 
-    // void showInfo(){
-    //     if(ToggleInfo.show){
-    //         planetInfo.SetActive(true);
-    //     }
-    // }
+    void resetInfo(){
+        
+    }
+
+    public void GetSetInfo(){
+        string b_name; //Name of body
+        float velocity, g, dens, mass;
+
+        for (int i = 0; i < bodyArr.Length; i++)
+        {
+            if(bodyArr[i].gameObject.GetComponent<ToggleInfo>().onBody){
+                b_name = bodyArr[i].name;
+                velocity = Mathf.Sqrt(bodyArr[i].GetComponent<Gravity>().currentVel.sqrMagnitude) * 1000;
+                mass = bodyArr[i].GetComponent<Gravity>().getMass();
+                g = bodyArr[i].GetComponent<Gravity>().calcAg();
+                dens = bodyArr[i].GetComponent<Gravity>().b_density * 100f;
+
+                nameBox.text = b_name;
+                velBox.text = "v: " + velocity + " m/s";
+                gBox.text = "a: " + g + " G";
+                massBox.text = "m: " + mass + " MKg";
+                densBox.text = "ρ : " + dens + " Kgm^3";
+            }
+        }
+    }
+    
+    public void closePlanetInfo(){
+        planetInfo.SetActive(false);
+        for (int i = 0; i < bodyArr.Length; i++)
+        {
+            if(bodyArr[i].GetComponent<ToggleInfo>().show){
+                bodyArr[i].GetComponent<ToggleInfo>().show = false;
+            }
+        }
+    }
 
     void camSwap(){
         int arrLimiter = 0;
@@ -80,9 +126,4 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
-    // public void closePlanetInfo(){
-    //     ToggleInfo.show = false;
-    //     planetInfo.SetActive(false);
-    // }
 }

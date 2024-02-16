@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class ToggleInfo : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+
+    MeshRenderer mRend;
+    Color originalCol;
+
+    public bool onBody = false;
+    public bool show = false;
+
+    GameManager gm;
+
+    private void Start() {
+        mRend = GetComponent<MeshRenderer>();
+        originalCol = mRend.material.color;
+    }
+    
+    private void OnMouseOver() {
+        mRend.material.color = Color.magenta;
+        onBody = true;
+        if(Input.GetMouseButton(0) && onBody){
+            show = true;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void OnMouseExit() {
+        mRend.material.color = originalCol;
+        onBody = false;
     }
 }
