@@ -11,8 +11,6 @@ public class ToggleInfo : MonoBehaviour
     public bool onBody = false;
     public bool show = false;
 
-    GameManager gm;
-
     private void Start() {
         mRend = GetComponent<MeshRenderer>();
         originalCol = mRend.material.color;
@@ -29,5 +27,6 @@ public class ToggleInfo : MonoBehaviour
     private void OnMouseExit() {
         mRend.material.color = originalCol;
         onBody = false;
+        show = false;
     }
 }
