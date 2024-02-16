@@ -28,49 +28,14 @@ public class GameManager : MonoBehaviour
         bodyArr = GameObject.FindGameObjectsWithTag("Body");
 
         camSwap();
-        showInfo();
-        setBodies();
+        //showInfo();
     }
 
-    void setBodies(){
-
-        for (int i = 0; i < bodies.Length; i++)
-        {
-            bodies[i] = bodyArr[i];
-        }
-
-        StartCoroutine(setUpCreate());
-    }
-
-    IEnumerator setUpCreate(){
-
-        yield return new WaitForEndOfFrame();
-        
-        while(bodies.Length != 0){
-            for (int i = 0; i < bodies.Length; i++)
-            {
-                if(BodyCreation.creating && bodies[i] != null){
-                    bodies[i].GetComponent<Gravity>().enabled = false;
-                    bodies[i].GetComponent<ToggleInfo>().enabled = false;
-                }else if(!BodyCreation.creating){
-                    bodies[i].GetComponent<Gravity>().enabled = true;
-                    bodies[i].GetComponent<ToggleInfo>().enabled = true;
-
-                    if(bodies[i].GetComponent<Gravity>().isStar && !bodies[i].GetComponent<Gravity>().notStar){
-                        bodies[i].GetComponent<Gravity>().enabled = false;
-                    }
-                }
-            }
-
-            break;
-        }
-    }
-
-    void showInfo(){
-        if(ToggleInfo.show){
-            planetInfo.SetActive(true);
-        }
-    }
+    // void showInfo(){
+    //     if(ToggleInfo.show){
+    //         planetInfo.SetActive(true);
+    //     }
+    // }
 
     void camSwap(){
         int arrLimiter = 0;
@@ -116,8 +81,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void closePlanetInfo(){
-        ToggleInfo.show = false;
-        planetInfo.SetActive(false);
-    }
+    // public void closePlanetInfo(){
+    //     ToggleInfo.show = false;
+    //     planetInfo.SetActive(false);
+    // }
 }
