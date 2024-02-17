@@ -11,6 +11,7 @@ TagManager:
   - velInfo
   - Name
   - denInfo
+  - dist
   layers:
   - Default
   - TransparentFX

@@ -10,11 +10,14 @@ public class GameManager : MonoBehaviour
     public Object[] cameras;
     int index = 0;
 
-    GameObject planetInfo;
-    Text nameBox, velBox, massBox, densBox, gBox;
+    GameObject planetInfo; 
+    Text nameBox, velBox, massBox, densBox, gBox, distBox;
+
+    public GameObject selBody; //Selected body
 
     public GameObject[] bodies;
     GameObject[] bodyArr;
+    
 
     private void Awake() {
         planetInfo = GameObject.FindGameObjectWithTag("BodyInfo");
@@ -24,6 +27,7 @@ public class GameManager : MonoBehaviour
         gBox = GameObject.FindGameObjectWithTag("gInfo").GetComponent<Text>();
         massBox = GameObject.FindGameObjectWithTag("massInfo").GetComponent<Text>();
         densBox = GameObject.FindGameObjectWithTag("denInfo").GetComponent<Text>();
+        distBox = GameObject.FindGameObjectWithTag("dist").GetComponent<Text>();
     }
 
     private void Start() {
@@ -44,28 +48,46 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        updateVel();
         camSwap();
     }
 
-    void resetInfo(){
-        
+    void updateVel(){
+        float velocity, distance;
+
+        while(selBody != null){
+            velocity = Mathf.Round(Mathf.Sqrt(selBody.GetComponent<Gravity>().currentVel.sqrMagnitude) * 1000) * 100 / 100;
+            distance = selBody.GetComponent<Gravity>().dist2Star();
+
+            velBox.text = "v: " + velocity + " m/s";
+            distBox.text = "R: " + distance + " Km";
+
+            break;
+        }
     }
 
     public void GetSetInfo(){
         string b_name; //Name of body
-        float velocity, g, dens, mass;
+        float dens;
+        double g, mass;
 
         for (int i = 0; i < bodyArr.Length; i++)
         {
             if(bodyArr[i].gameObject.GetComponent<ToggleInfo>().onBody){
+                
+                selBody = bodyArr[i];
+
                 b_name = bodyArr[i].name;
-                velocity = Mathf.Sqrt(bodyArr[i].GetComponent<Gravity>().currentVel.sqrMagnitude) * 1000;
-                mass = bodyArr[i].GetComponent<Gravity>().getMass();
+
+                mass = bodyArr[i].GetComponent<Gravity>().getMass() * 10;
+                mass = System.Math.Round(mass, 1);
+
                 g = bodyArr[i].GetComponent<Gravity>().calcAg();
+                g = System.Math.Round(g, 2);
+
                 dens = bodyArr[i].GetComponent<Gravity>().b_density * 100f;
 
                 nameBox.text = b_name;
-                velBox.text = "v: " + velocity + " m/s";
                 gBox.text = "a: " + g + " G";
                 massBox.text = "m: " + mass + " MKg";
                 densBox.text = "ρ : " + dens + " Kgm^3";

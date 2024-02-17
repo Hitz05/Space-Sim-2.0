@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Gravity : MonoBehaviour
 {
+    GameManager gm;
+
     const float G = 0.01f;
     Vector3 scaleChange;
 
@@ -17,9 +19,12 @@ public class Gravity : MonoBehaviour
     public float b_Mass;
     public bool notStar = true;
     float b_Ag; //Accel due to gravity
+    float distance2Star;
 
     Rigidbody rb;
     public List<GameObject> bodies;
+
+    GameObject star;
 
     [Header("Gravity Parameters")]
     float r; //Distance between 2 bodies
@@ -83,6 +88,19 @@ public class Gravity : MonoBehaviour
         }else{
             gameObject.GetComponent<Gravity>().enabled = true;
         }
+    }
+
+    public float dist2Star(){
+        foreach(var body in bodies){
+            if(body.GetComponent<Gravity>().isStar){
+                star = body;
+                if(star != this.gameObject){
+                    distance2Star = (star.GetComponent<Rigidbody>().position - this.GetComponent<Rigidbody>().position).sqrMagnitude;
+                }
+            }
+        }
+
+        return distance2Star;
     }
 
     public float calcAg(){
