@@ -13,12 +13,15 @@ public class Selector : MonoBehaviour
 
     Image selectorImg;
 
+    private void Awake() {
+        info = GameObject.FindGameObjectWithTag("BodyInfo");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         selector = GameObject.FindGameObjectWithTag("Selector");
-        info = GameObject.FindGameObjectWithTag("BodyInfo");
-
+        
         selectorImg = FindObjectOfType<Image>();
 
         img = selectorImg.GetComponent<RectTransform>();
@@ -43,7 +46,6 @@ public class Selector : MonoBehaviour
 
             //Sets Size based on radius
             float radius = GameManager.selBodyOut.GetComponent<Gravity>().b_radius;
-
             img.sizeDelta = new Vector2(radius * scaleFactor, radius * scaleFactor);
 
             if(GameManager.selBodyOut.GetComponent<Gravity>().isStar){
