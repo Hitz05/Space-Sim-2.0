@@ -12,6 +12,7 @@ TagManager:
   - Name
   - denInfo
   - dist
+  - Selector
   layers:
   - Default
   - TransparentFX

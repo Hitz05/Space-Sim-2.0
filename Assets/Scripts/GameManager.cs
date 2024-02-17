@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     Text nameBox, velBox, massBox, densBox, gBox, distBox;
 
     public GameObject selBody; //Selected body
+    public static GameObject selBodyOut;
 
     public GameObject[] bodies;
     GameObject[] bodyArr;
@@ -48,16 +49,19 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        updateVel();
+        liveInfo();
         camSwap();
+
+        selBodyOut = selBody;
     }
 
-    void updateVel(){
-        float velocity, distance;
+    void liveInfo(){
+        float velocity;
+        double distance;
 
         while(selBody != null){
             velocity = Mathf.Round(Mathf.Sqrt(selBody.GetComponent<Gravity>().currentVel.sqrMagnitude) * 1000) * 100 / 100;
-            distance = selBody.GetComponent<Gravity>().dist2Star();
+            distance = System.Math.Round(selBody.GetComponent<Gravity>().dist2Star(), 0);
 
             velBox.text = "v: " + velocity + " m/s";
             distBox.text = "R: " + distance + " Km";
