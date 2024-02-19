@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Selector : MonoBehaviour
 {
-    GameObject selector, info;
+    GameObject  info;
     public float scaleFactor = 22.1f;
 
     RectTransform img;
@@ -19,8 +17,6 @@ public class Selector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        selector = GameObject.FindGameObjectWithTag("Selector");
-
         selectorImg = FindObjectOfType<Image>();
         img = selectorImg.GetComponent<RectTransform>();
 

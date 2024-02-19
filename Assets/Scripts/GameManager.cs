@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject selBody; //Selected body
     public static GameObject selBodyOut;
 
-    public GameObject[] bodies;
+    //public GameObject[] bodies;
     GameObject[] bodyArr;
     
 
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     private void Update() {
 
-        bodies = new GameObject[GameObject.FindGameObjectsWithTag("Body").Length];
+        //bodies = new GameObject[GameObject.FindGameObjectsWithTag("Body").Length];
         bodyArr = GameObject.FindGameObjectsWithTag("Body");
 
         for (int i = 0; i < bodyArr.Length; i++)
