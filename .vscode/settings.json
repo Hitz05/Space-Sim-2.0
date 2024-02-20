@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Space-Sim-2.0.sln"
+    "dotnet.defaultSolution": "Space Sim 2.0.sln"
 }
