@@ -19,10 +19,14 @@ public class CameraAdjust : MonoBehaviour
 
         transform.Translate(new Vector2(xInput * velocity * Time.deltaTime, yInput * velocity * Time.deltaTime));
 
-        if(scroll != 0){
+        if(scroll != 0 && transform.position.y > 0){
             transform.position -= new Vector3(0, scroll * sens * Time.deltaTime, 0);
         }
         else if(Input.GetKey(KeyCode.Space)){
+            transform.position = originalPos;
+        }
+
+        if(transform.position.y < 0){
             transform.position = originalPos;
         }
     }
