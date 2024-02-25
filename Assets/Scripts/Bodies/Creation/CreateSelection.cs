@@ -1,21 +1,44 @@
+using System;
 using UnityEngine;
 
 public class CreateSelection : MonoBehaviour
 {
     public static int choice;
 
+    public GameObject star, planet;
+    
+    //bool starPlaced = false;
+
     // Update is called once per frame
     void Update()
     {
         select();
+        createStar();
+    }
+
+    void checkStar(){
+
     }
     
     void createStar(){
-        //Can place anywhere anytime
-        //No rotation
-        //Alt + mouse 0 = place centre
+        while(choice == 1){
+            
+            if(Input.GetButtonDown("Fire1")){
+                Instantiate(star, new Vector3(0,0,0), Quaternion.identity);
+                //starPlaced = true;
+            }
+            if(Input.GetButtonDown("Fire2")){
 
-        
+                Vector3 mousePos = Input.mousePosition;
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Mathf.Abs(Camera.main.transform.position.y)));
+
+                Instantiate(planet, new Vector3(worldPos.x, 0f, worldPos.z), Quaternion.identity);
+
+                //starPlaced = true;
+            }
+
+            break;
+        }
 
     }
     void createPlanet(){
@@ -31,15 +54,15 @@ public class CreateSelection : MonoBehaviour
 
     void select(){
         if(Input.GetKeyDown(KeyCode.Z)){
-            Debug.Log("Star");
+            //Debug.Log("Star");
             choice = 1;
 
         }else if(Input.GetKeyDown(KeyCode.X)){
-            Debug.Log("Planet");
+            //Debug.Log("Planet");
             choice = 2;
             
         }else if(Input.GetKeyDown(KeyCode.C)){
-            Debug.Log("Nothing Yet");
+            //Debug.Log("Nothing Yet");
             choice = 3;
         }
     }
