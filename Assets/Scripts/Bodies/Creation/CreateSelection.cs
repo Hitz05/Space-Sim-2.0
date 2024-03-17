@@ -22,12 +22,13 @@ public class CreateSelection : MonoBehaviour
     
     void createStar(){
         while(choice == 1){
-            
-            if(Input.GetButtonDown("Fire1")){
+            //Right click, goes in the middle
+            if(Input.GetMouseButtonDown(1)){
                 Instantiate(star, new Vector3(0,0,0), Quaternion.identity);
                 //starPlaced = true;
             }
-            if(Input.GetButtonDown("Fire2")){
+            //Left-Click, places wherever mouse is
+            if(Input.GetMouseButtonDown(0)){
 
                 Vector3 mousePos = Input.mousePosition;
                 Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Mathf.Abs(Camera.main.transform.position.y)));
