@@ -13,6 +13,9 @@ TagManager:
   - denInfo
   - dist
   - Selector
+  - CreateMenu
+  - StarMenu
+  - Star
   layers:
   - Default
   - TransparentFX

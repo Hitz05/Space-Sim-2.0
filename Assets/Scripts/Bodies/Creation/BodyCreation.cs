@@ -11,11 +11,11 @@ public class BodyCreation : MonoBehaviour
     float val;
     
     private void Update() {
-        Debug.Log(makeRadius());
+        //Debug.Log(makeRadius());
         val = radiusSel.value;
     }
 
-    float makeRadius(){
+    public float starRadius(){
         float factor = 0;
 
         //When value > 0, 1 = 1.01, when val < 0, - = 0.99

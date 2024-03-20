@@ -28,12 +28,12 @@ public class CreateSelection : MonoBehaviour
                 //starPlaced = true;
             }
             //Left-Click, places wherever mouse is
-            if(Input.GetMouseButtonDown(0)){
+            if(Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.Space)){
 
                 Vector3 mousePos = Input.mousePosition;
                 Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Mathf.Abs(Camera.main.transform.position.y)));
 
-                Instantiate(planet, new Vector3(worldPos.x, 0f, worldPos.z), Quaternion.identity);
+                Instantiate(star, new Vector3(worldPos.x, 0f, worldPos.z), Quaternion.identity);
 
                 //starPlaced = true;
             }
