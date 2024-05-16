@@ -7,6 +7,7 @@ public class BodyCreation : MonoBehaviour
     public Slider radiusSel;
     public Text rText;
 
+    float update = 0;
     float solarRadius = 10f;
     float val;
     
