@@ -47,7 +47,8 @@ public class Gravity : MonoBehaviour
 
     private void Update() {
         setVel();
-        is_Star();
+        setRadius();
+        Invoke("is_Star", 0.1f);
         if(speed < 0){
             speed = 0;
             Debug.LogError("Speed is negative, BIG NO NO");
@@ -83,7 +84,7 @@ public class Gravity : MonoBehaviour
     }
 
     void is_Star(){
-        if(isStar){
+        if(isStar && !BodyCreation.isCreating){
             gameObject.GetComponent<Gravity>().enabled = false;
         }else{
             gameObject.GetComponent<Gravity>().enabled = true;
@@ -108,6 +109,11 @@ public class Gravity : MonoBehaviour
         b_Ag = G * getMass() / Mathf.Pow(b_radius, 2);
     
         return b_Ag;
+    }
+
+    public void setRadius(){
+        scaleChange = new Vector3(b_radius, b_radius, b_radius);
+        this.transform.localScale = scaleChange;
     }
 
     public float getMass(){
