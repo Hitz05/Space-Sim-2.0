@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Create.unity
     guid: 78a791024d8280b4bb839f78c9419d5b
+  - enabled: 1
+    path: Assets/Scenes/Testing.unity
+    guid: 145d5cbda1f2db54fa1a1b407d57d22b
+  - enabled: 1
+    path: Assets/Scenes/Sim.unity
+    guid: 7f109ed3bfd8f0b4aa018a161762ecea
   m_configObjects: {}
